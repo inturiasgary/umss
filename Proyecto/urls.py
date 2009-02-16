@@ -3,6 +3,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    #(r'^$', include(sistema.urls)),
     # Example:
     # (r'^Proyecto/', include('Proyecto.foo.urls')),
 
