@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import GrupoTarea, Tarea
+from models import TodoList, Todo
 
-admin.site.register(GrupoTarea)
-admin.site.register(Tarea)
+admin.site.register(TodoList)
+admin.site.register(Todo)
