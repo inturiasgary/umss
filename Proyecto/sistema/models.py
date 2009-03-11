@@ -3,6 +3,7 @@ from django.utils.translation import ugettext as _
 from datetime import datetime, date
 from django.db.models import Count
 from calendar import Calendar
+from django.contrib.auth.models import User
 #from sistema.repository.models import Repository
 
 ACTIVE     = _('Active')
@@ -11,12 +12,13 @@ CLOSED      = _('Closed')
 CHOICES_STATUS = (('Active',ACTIVE),('Closed',CLOSED))
 
 
-class Developer(models.Model):
+class Developer(User):
     
-    first_name = models.CharField(_('* First name'),max_length=100)
-    last_name  = models.CharField(_('* Last name'),max_length=100, null=True, blank=True)
-    email      = models.EmailField(_('* Email'), help_text="User login.")
-    password   = models.CharField(_('* Password'), max_length=100)
+    first_name      = models.CharField(_('* Nombre'),max_length=100)
+    last_name       = models.CharField(_('* Apellido'),max_length=100)
+    email           = models.EmailField(_('* Email'), help_text="Cuenta de acceso.")
+    password        = models.CharField(_('* Contrasena'), max_length=100)
+    activation_date = models.DateField(default=date.today())
     
     def _get_full_name(self):
         '''Returns the developer's full name'''
@@ -34,8 +36,8 @@ class Developer(models.Model):
 
 class Repository(models.Model):
     
-    name = models.CharField(_('* Name'), max_length=100)
-    description = models.CharField(_('* Description'), max_length=100)
+    name = models.CharField(_('* Nombre'), max_length=100)
+    description = models.CharField(_('* Descripcion'), max_length=100)
     developers = models.ManyToManyField(Developer, through='Membership')
     
     def __unicode__(self):

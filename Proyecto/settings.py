@@ -1,10 +1,8 @@
-# Django settings for Proyecto project.
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Gary Inturias Rojas', 'inturiasgary@hotmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -16,21 +14,9 @@ DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'America/Chicago'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
-
+TIME_ZONE = 'America/La_Paz'
+LANGUAGE_CODE = 'es-bo'
 SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
 
 # Absolute path to the directory that holds media.
@@ -77,6 +63,20 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'Proyecto.sistema',
-    'tarea'
+    'sistema',
+    'tarea',
 )
+
+gettext_noop = lambda s: s
+LANGUAGES = (
+    ('fr', gettext_noop('French')),
+    ('es', gettext_noop('Spanish')),
+    ('en', gettext_noop('English')),
+)
+
+#configuracion para email
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'inturiasgary@gmail.com'
+EMAIL_HOST_PASSWORD = 'iomegasys123'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

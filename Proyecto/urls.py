@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
+from views import latest_developer
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -13,4 +14,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
+    (r'latest/$', latest_developer),
 )
