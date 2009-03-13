@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>Sistema - Usuario {{ nombreusuario }} </title>
+    </head>
+    <h1> Repositorios donde pertenece:</h1>
+    {% if repositorios %}
+        <ul>
+            {% for repositorio in repositorios %}
+            <li><a href="{{ repositorio.titulo }}">{{ repositorio.titulo }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aun no pertenece a ningun repositorio</p>
+    {% endif %}
+<html>
