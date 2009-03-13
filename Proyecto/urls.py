@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
-from views import latest_developer
+from sistema.views import latest_developer, dev_page, principal
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    #(r'^$', include(sistema.urls)),
+    (r'^$', principal),
+    (r'^dev/(\w+)/$',dev_page),
+    (r'^sistema/', include('sistema.urls')),
     # Example:
     # (r'^Proyecto/', include('Proyecto.foo.urls')),
 
@@ -15,4 +17,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
     (r'latest/$', latest_developer),
+    
+    
 )
