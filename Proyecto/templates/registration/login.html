@@ -1,9 +1,7 @@
-<html>
-    <head>
-        <title>Sistema - Login page</title>
-    </head>
-    <body>
-        <h1>User Login</h1>
+{% extends "base.html" %}
+{% block title %}Sistema - Login page{% endblock %}
+{% block head %}User Login {% endblock %}
+{% block content %}
         {% if form.errors %}
             <p>Tu nombre de usuario o nombre no estan correctos</p>
         {% endif %}
@@ -12,8 +10,7 @@
         {{ form.username }}</p>
         <p><label for="id_password">Password: </label>
         {{ form.password }}</p>
-        <input type="hidden" name="next" value="{{ next }}"/>
+        <input type="hidden" name="next" value="/" />
         <input type="submit" value="login"/>
     </form>
-    </body>
-</html>
+{% endblock %}

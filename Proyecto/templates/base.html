@@ -1,9 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-    <head>
-        <title>{{ head_title }}</title>
-    </head>
-    <body>
-        <h1>{{ page_title }}</h1>
-        <p>{{ page_body }}</p>
-    </body>
+  <head>
+    <title>Herramienta Web | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/site_media/style.css" type="text/css" />
+  </head>
+  <body>
+  <div id="nav">
+    <a href="/">Principal</a> | 
+    {% if user.is_authenticated %}
+      Bienvenido {{ user.username }} (<a href="/sistema/logout">Cerrar Sesion</a>)
+    {% else %}
+      <a href="/sistema/login">Iniciar Session</a>
+    {% endif %}
+  </div>
+    <h1>{% block head %}{% endblock %}</h1>
+    {% block content %}{% endblock %}
+  </body>
 </html>

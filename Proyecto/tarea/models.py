@@ -1,5 +1,6 @@
 from django.db import models
-from sistema.models import Developer, Repositorio
+from django.contrib.auth.models import User
+from sistema.models import Repositorio
 from django.utils.translation import ugettext as _
 from datetime import date
 
@@ -30,7 +31,7 @@ class Todo(models.Model):
         ordering            = ['fecha_publicacion']
 
 class Comentario(models.Model):
-    developer         = models.ForeignKey(Developer)
+    user              = models.ForeignKey(User)
     todo              = models.ForeignKey(Todo)
     mensaje           = models.CharField(max_length=200)
     fecha_publicacion = models.DateField(default = date.today())

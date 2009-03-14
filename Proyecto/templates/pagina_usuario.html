@@ -1,7 +1,7 @@
-<html>
-    <head>
-        <title>Sistema - Usuario {{ nombreusuario }} </title>
-    </head>
+{% extends "base.html" %}
+{% block title %}Sistema - Usuario {{ nombreusuario }}{% endblock %}
+{% block head %}Bienvenido al sistema{% endblock %}
+{% block content %}
     <h1> Repositorios donde pertenece:</h1>
     {% if repositorios %}
         <ul>
@@ -12,4 +12,4 @@
     {% else %}
         <p>Aun no pertenece a ningun repositorio</p>
     {% endif %}
-<html>
+{% endblock %}
