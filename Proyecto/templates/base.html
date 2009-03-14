@@ -11,7 +11,8 @@
     {% if user.is_authenticated %}
       Bienvenido {{ user.username }} (<a href="/sistema/logout">Cerrar Sesion</a>)
     {% else %}
-      <a href="/sistema/login">Iniciar Session</a>
+      <a href="/sistema/login">Iniciar Session</a> | 
+      <a href="/sistema/registro">Registrarse</a>
     {% endif %}
   </div>
     <h1>{% block head %}{% endblock %}</h1>
