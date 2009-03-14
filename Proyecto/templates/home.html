@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Sistema de administracion de proyectos{% endblock %}
+{% block head %}Bienvenido al Sistema{% endblock %}
+{% block content %}
+    {% if user.username %}
+        <h1>Bienvenido {{ user.username }}, ingresaste al sistema </h1>
+    {% else %}
+        <h1>No te encuentras logeado, intenta <a href="/sistema/login/">login</a> antes de ingresar</h1>
+    {% endif %}
+{% endblock %}
