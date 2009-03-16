@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-from sistema.models import Repositorio
+from sistema.models import Repository
 from django.utils.translation import ugettext as _
 from datetime import date
 
 class TodoList(models.Model):
     nombre = models.CharField(max_length=100)
-    repositorio = models.ForeignKey(Repositorio, related_name='todolist', verbose_name='Repositories')
+    repository = models.ForeignKey(Repository, related_name='todolist', verbose_name='Repositories')
     
     def __unicode__(self):
         return self.nombre

@@ -10,36 +10,14 @@ CLOSED      = _('Closed')
 
 CHOICES_STATUS = (('Active',ACTIVE),('Closed',CLOSED))
 
-#class Developer(models.Model):
+class Repository(models.Model):
     
-    #nombre          = models.CharField(_('* Nombre'),max_length=100)
-    #apellido        = models.CharField(_('* Apellido'),max_length=100)
-    #email           = models.EmailField(_('* Email'))
-    #nombreusuario   = models.CharField(_('* Nombre de usuario'), unique=True, max_length=100, help_text="Cuenta de acceso")
-    #password        = models.CharField(_('* Contrasena'), max_length=100)
-    
-    #def _get_full_name(self):
-        #'''Returns the developer's full name'''
-        #return _(u'%s %s')%(self.nombre, self.apellido)
-    
-    #full_name = property(_get_full_name)
-    
-    #def __unicode__(self):
-        #return _(u'%s %s')%(self.nombre, self.apellido)
-    
-    #class Meta:
-        #verbose_name        = _('Developer')
-        #verbose_name_plural = _('Developers')
-        #ordering 	    = ['nombre','apellido']
-
-class Repositorio(models.Model):
-    
-    titulo = models.CharField(_('* Titulo'), max_length=100)
+    title       = models.CharField(_('* Titulo'), max_length=100, unique=True)
     description = models.CharField(_('* Descripcion'), max_length=100)
-    users = models.ManyToManyField(User, through='Miembro')
+    users       = models.ManyToManyField(User, through='MemberShip')
     
     def __unicode__(self):
-        return self.titulo
+        return self.title
     
     class Meta:
         verbose_name        = _('Repositorio')
@@ -48,40 +26,47 @@ class Repositorio(models.Model):
 class Tag(models.Model):
     
     name        = models.CharField(max_length=64, unique=True)
-    repositorio = models.ManyToManyField(Repositorio)
-    
-
-class Miembro(models.Model):
-    
-    user     = models.ForeignKey(User, verbose_name = '* Developer')
-    repositorio   = models.ForeignKey(Repositorio, related_name = 'repositorio_lista', verbose_name = '* Repository')
-    fecha_ingreso = models.DateField(default=date.today())
-    activo        = models.BooleanField(default=True)
+    repository  = models.ManyToManyField(Repository)
     
     def __unicode__(self):
-        return _(u'Miembro %s repositorio %s')%(self.user.username, self.repositorio.titulo)
+        return self.name
+    
+    class Meta:
+        verbose_name        = _('Tag')
+        verbose_name_plural = _('Tags')
+    
+
+class MemberShip(models.Model):
+    
+    user        = models.ForeignKey(User, verbose_name = '* Developer')
+    repository  = models.ForeignKey(Repository, related_name = 'repositorio_lista', verbose_name = '* Repository')
+    date_in     = models.DateField(default=date.today())
+    state       = models.BooleanField(default=True)
+    
+    def __unicode__(self):
+        return _(u'Miembro %s repositorio %s')%(self.user.username, self.repository.title)
     
     class Meta:
         verbose_name        = _('Miembro')
         verbose_name_plural = _('Miembros')
-        ordering            = ['fecha_ingreso']
+        ordering            = ['date_in']
         
 class Mensaje(models.Model):
     
-    users      = models.ManyToManyField(User, verbose_name='* Developer')
-    asunto         = models.CharField(_('* Asunto'), max_length=100)
-    contenido      = models.CharField(_('* Contenido'), max_length=100)
-    fecha_creacion = models.DateTimeField(default=datetime.now()) 
+    users        = models.ManyToManyField(User, verbose_name='* Developer')
+    subject      = models.CharField(_('* Asunto'), max_length=100)
+    content      = models.CharField(_('* Contenido'), max_length=100)
+    created_date = models.DateTimeField(default=datetime.now()) 
     
     def __unicode__(self):
-        return _(u'asunto: %s')%(self.asunto)
+        return _(u'asunto: %s')%(self.subject)
     
 class Accion(models.Model):
     
-    user   = models.ForeignKey(User)
-    repositorio = models.ForeignKey(Repositorio)
-    commit      = models.CharField(max_length=250)
-    fecha_efectuada = models.DateField()
+    user         = models.ForeignKey(User)
+    repository   = models.ForeignKey(Repository)
+    commit       = models.CharField(max_length=250)
+    created_date = models.DateField()
     
     def __unicode__(self):
         return _(u'Commit: %s')%(self.commit)
@@ -89,4 +74,4 @@ class Accion(models.Model):
     class Meta:
         verbose_name        = _('Accion')
         verbose_name_plural = _('Acciones')
-        ordering            = ['fecha_efectuada']
+        ordering            = ['created_date']

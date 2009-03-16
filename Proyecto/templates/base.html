@@ -9,7 +9,8 @@
   <div id="nav">
     <a href="/">Principal</a> | 
     {% if user.is_authenticated %}
-      Bienvenido {{ user.username }} (<a href="/sistema/logout">Cerrar Sesion</a>)
+      Logeado como <a href="/dev/{{user.username}}/">{{ user.username }}</a> (<a href="/sistema/logout">Cerrar Sesion</a>) | 
+      <a href="/sistema/guardar/">Crear nuevo repositorio</a>
     {% else %}
       <a href="/sistema/login">Iniciar Session</a> | 
       <a href="/sistema/registro">Registrarse</a>
