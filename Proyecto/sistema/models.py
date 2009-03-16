@@ -44,6 +44,11 @@ class Repositorio(models.Model):
     class Meta:
         verbose_name        = _('Repositorio')
         verbose_name_plural = _('Repositorios')
+        
+class Tag(models.Model):
+    
+    name        = models.CharField(max_length=64, unique=True)
+    repositorio = models.ManyToManyField(Repositorio)
     
 
 class Miembro(models.Model):
