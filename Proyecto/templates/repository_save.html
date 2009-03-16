@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Guardar Repositorio{% endblock %}
+{% block head %}Guardar Repositorio{% endblock %}
+{% block content %}
+<form method="post" action=".">
+    {{ form.as_p }}
+    <input type="submit" value="save" />
+</form>
+{% endblock %}
