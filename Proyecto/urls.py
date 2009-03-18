@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
     (r'latest/$', latest_developer),
+    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{ 'document_root': site_media }),
 
     

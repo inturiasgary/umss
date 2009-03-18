@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from sistema.views import Repository
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _
 import re
@@ -43,3 +44,11 @@ class RepositorySaveForm(forms.Form):
     tags        = forms.CharField(label='Tags',
                                   required=False,
                                   widget=forms.TextInput(attrs={'size':64}))
+    
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        try:
+            Repository.objects.get(title=title)
+        except ObjectDoesNotExist:
+            return title
+        raise forms.ValidationError('Nombre de proyecto ya utilizado, elija otro.')

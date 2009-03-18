@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from models import MemberShip, Repository, Tag
 from django.utils.translation import ugettext as _
 from forms import RegistracionForm, RepositorySaveForm
+from django.contrib.auth.decorators import login_required
 
 def principal(request):
     return render_to_response("home.html", RequestContext(request))
@@ -15,6 +16,7 @@ def latest_developer(request):
     developer_list = MemberShip.objects.all()
     return render_to_response('latest_developer.html', {'developer_list':developer_list})
 
+@login_required
 def dev_page(request, nombreusuario):
     try:
         user = User.objects.get(username=nombreusuario)
@@ -50,6 +52,7 @@ def register_page(request):
     variables = RequestContext(request, {'form':form})
     return render_to_response('registration/register_user.html', variables)
 
+@login_required
 def repository_save_page(request):
     if request.method == 'POST':
         form = RepositorySaveForm(request.POST)
@@ -57,7 +60,6 @@ def repository_save_page(request):
             #user = User.objects.get(username=request.user.username)
             repository, created = Repository.objects.get_or_create( title=form.cleaned_data['title'],
                                                                     description=form.cleaned_data['description'])
-            
             #Si el repositorio esta siendo actualizado
             if not created:
                 repository.tag_set.clear()
@@ -67,13 +69,14 @@ def repository_save_page(request):
                 repository.tag_set.add(tag)
             #guardado del repositorio
             repository.save()
+            #haciendo miembro del repositorio al creador
             m1 = MemberShip(user=request.user, repository=repository)
             m1.save()
             return HttpResponseRedirect(
             '/sistema/dev/%s' % request.user.username)
     else:
         form = RepositorySaveForm()
-        variables = RequestContext(request, 
-                                   {'form':form})
-        return render_to_response('repository_save.html', variables)
+    variables = RequestContext(request, 
+                               {'form':form})
+    return render_to_response('repository_save.html', variables)
             
