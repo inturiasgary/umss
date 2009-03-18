@@ -1,0 +1,27 @@
+{% if repositories %}
+    <ul class="repositories">
+        {% for repository in repositories %}
+            <li>
+                <a href="{{ repository.title }}" class="title" >{{ repository.title }}</a>
+                <br />
+                {% if show_tags%}
+                    Tags:
+                    {% if repository.tag_set.all %}
+                        <ul class="tags">
+                            {% for tag in repository.tag_set.all %}
+                                <li> {{ tag.name }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        El repositorio no tiene tags.
+                    {% endif %}
+                    <br />
+                {% endif %}
+                {% if show_user %}
+                    Creador:
+                    <a href="/user/{{ repository.user.username }}" class="username">{{ user.username }}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </u>
+{% endif %}
